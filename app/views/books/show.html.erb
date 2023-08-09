@@ -45,7 +45,9 @@
           <p>
             <%= image_tag @book.user.get_profile_image, size:"100x100" %>
             <%= book_comment.comment %>
-            <%= link_to 'Destroy', book_book_comments_path(@book), method: :delete, class: "btn btn-sm btn-danger" %>
+            <% if book_comment.user == current_user %>
+              <%= link_to 'Destroy', book_book_comments_path(@book), method: :delete, class: "btn btn-sm btn-danger" %>
+            <% end %>
           </p>
           <%= link_to(@book.user) do %>
             <%= book_comment.user.name %>
