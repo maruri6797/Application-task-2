@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     get :followers, on: :member
   end
 
+  resources :messages, only: [:create]
+  resources :rooms, only: [:create, :show]
+
   root to: "homes#top"
   get "home/about"=>"homes#about"
   get "search" => "searches#search"
