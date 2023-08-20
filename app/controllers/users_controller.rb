@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     @books = @user.books
     if params[:created_at] == ""
-      @search_book = "日付を選択してください"#①
+      @search_book = "日付を選択してください"
     else
       created_at = params[:created_at]
       @search_book = @books.where(['created_at LIKE?', "#{created_at}%"]).count
