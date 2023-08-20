@@ -27,6 +27,17 @@ class UsersController < ApplicationController
     @follower_users = @user.follower_users
   end
 
+  def search
+    @user = User.find(params[:user_id])
+    @books = @user.books
+    if params[:created_at] == ""
+      @search_book = "日付を選択してください"#①
+    else
+      created_at = params[:created_at]
+      @search_book = @books.where(['created_at LIKE?', "#{created_at}%"]).count
+    end
+  end
+
   def follows
     user = User.find(params[:id])
     @users = user.following_users
