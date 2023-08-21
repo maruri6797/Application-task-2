@@ -12,22 +12,42 @@
     <div class='col-md-8 offset-md-1'>
     <h2>Group Detail</h2>
     <table class="table">
-      <tr>
-        <td>
-          <% if @group.image.attached? %>
-            <%= image_tag @group.image, size: '50x50' %>
-          <% else %>
-            <%= image_tag 'no_image', size: '50x50' %>
-          <% end %>
-        </td>
-        <td><%= @group.name %></td>
-        <td><%= @group.introduction %></td>
-        <td>
-          <% if @group.owner_id == current_user.id %>
-            <%= link_to 'Edit', edit_group_path(@group), class: 'btn btn-success' %>
-          <% end %>
-        </td>
-      </tr>
+      <thead>
+        <tr>
+          <th></th>
+          <th>グループ名</th>
+          <th>紹介文</th>
+          <th>メンバー</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <% if @group.image.attached? %>
+              <%= image_tag @group.image, size: '50x50' %>
+            <% else %>
+              <%= image_tag 'no_image', size: '50x50' %>
+            <% end %>
+          </td>
+         <td><%= @group.name %></td>
+          <td><%= @group.introduction %></td>
+          <td>
+            <% @group.group_members.each do |member| %>
+              <%= member.name %>
+            <% end %>
+          </td>
+          <td>
+            <% if @group.owner_id == current_user.id %>
+              <%= link_to 'Edit', edit_group_path(@group), class: 'btn btn-success' %>
+            <% elsif @group.include?(current_user) %>
+              <%= link_to 'Leave this group', group_group_users_path(@group), method: :delete, class: 'btn btn-danger' %>
+            <% else %>
+              <%= link_to 'Join this group', group_group_users_path(@group), method: :post, class: 'btn btn-success' %>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
     </table>
     </div>
   </div>
