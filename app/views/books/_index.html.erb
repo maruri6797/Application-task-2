@@ -19,6 +19,18 @@
         <td class="favorite-btn<%= book.id %>"><%= render 'favorites/favorite-btn', book: book %></td>
         <td>コメント数：<%= book.book_comments.count %></td>
         <td>閲覧数: <%= book.view_counts.count %></td>
+        <td id="star-comf-<%= book.id %>"><%= book.score %></td>
+        <script>
+          $('#star-comf-<%= book.id %>').empty();
+          $('#star-comf-<%= book.id %>').raty({
+            starOff: '<%= asset_path('star-off.png') %>',
+            starOn: '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half: true,
+            readOnly: true,
+            score: <%= book.score %>
+          });
+        </script>
       </tr>
     <% end %>
   </tbody>

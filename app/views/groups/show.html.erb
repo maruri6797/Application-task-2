@@ -19,6 +19,7 @@
           <th>紹介文</th>
           <th>メンバー</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -44,6 +45,11 @@
               <%= link_to 'Leave this group', group_group_users_path(@group), method: :delete, class: 'btn btn-danger' %>
             <% else %>
               <%= link_to 'Join this group', group_group_users_path(@group), method: :post, class: 'btn btn-success' %>
+            <% end %>
+          </td>
+          <td>
+            <% if @group.owner_id == current_user.id %>
+              <%= link_to 'Notice an Event', group_new_mail_path(@group), class: 'btn btn-info' %>
             <% end %>
           </td>
         </tr>
