@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
     resource :book_comments, only: [:create, :destroy]
   end
+
   resources :users, only: [:index,:show,:edit,:update] do
     get "search", to: "users#search"
     resource :relationships, only: [:create, :destroy]
@@ -23,5 +24,6 @@ Rails.application.routes.draw do
   root to: "homes#top"
   get "home/about"=>"homes#about"
   get "search" => "searches#search"
+  get "tagsearches/search", to: "tag_searches#search"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
